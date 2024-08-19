@@ -5,5 +5,5 @@ transformers
 nltk
 torch
 tqdm
-sklearn
+scikit-learn
 
