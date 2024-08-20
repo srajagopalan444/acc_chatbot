@@ -9,7 +9,6 @@ def response_generator():
             "Do you need help?",
         ]
     )
-  return response
 
 st.title('⛑️ Safety Bot ⛑️')
 
