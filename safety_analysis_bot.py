@@ -19,7 +19,7 @@ for message in st.session_state.messages:
 # React to user input
 if prompt := st.chat_input("Enter the description of the incident..."):
     # Display user message in chat message container
-    with st.chat_message("user"):
+    with st.chat_message("Analyst"):
         st.markdown(prompt)
     # Add user message to chat history
-    st.session_state.messages.append({"role": "user", "content": prompt})
+    st.session_state.messages.append({"role": "Analyst", "content": prompt})
