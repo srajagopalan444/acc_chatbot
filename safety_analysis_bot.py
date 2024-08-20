@@ -1,6 +1,7 @@
 import streamlit as st
 
 import random
+import time
 def response_generator():
   response = random.choice(
         [
