@@ -1,8 +1,20 @@
 import streamlit as st
 
+import random
+def response_generator():
+  response = random.choice(
+        [
+            "Hello there! How can I assist you today?",
+            "Hi, human! Is there anything I can help you with?",
+            "Do you need help?",
+        ]
+    )
+
 st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
+
+
 
 #initialise history storage
 if 'messages' not in st.session_state:
@@ -20,15 +32,7 @@ if prompt := st.chat_input("Enter the description of the incident..."):
     # Add user message to chat history
     st.session_state.messages.append({"role": "Analyst", "content": prompt})
 
-import random
-def response_generator():
-  response = random.choice(
-        [
-            "Hello there! How can I assist you today?",
-            "Hi, human! Is there anything I can help you with?",
-            "Do you need help?",
-        ]
-    )
+
 
 with st.chat_message("assistant"):
     response1 = st.write_stream(response_generator())
