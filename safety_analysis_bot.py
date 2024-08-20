@@ -9,6 +9,7 @@ def response_generator():
             "Do you need help?",
         ]
     )
+  return response
 
 st.title('⛑️ Safety Bot ⛑️')
 
@@ -33,6 +34,6 @@ if prompt := st.chat_input("Enter the description of the incident..."):
     st.session_state.messages.append({"role": "Analyst", "content": prompt})
     with st.chat_message("assistant"):
       response = st.write_stream(response_generator())
-      st.markdown(response)
+      #st.markdown(response)
       st.session_state.messages.append({"role": "assistant", "content": response})
       # Add assistant response to chat history
