@@ -1,5 +1,5 @@
 import streamlit as st
 
-st.title('🎈 Test')
+st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
