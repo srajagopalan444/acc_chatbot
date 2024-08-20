@@ -9,7 +9,9 @@ def response_generator():
             "Do you need help?",
         ]
     )
-  return response
+  for word in response.split():
+        yield word + " "
+        time.sleep(0.05)
 
 st.title('⛑️ Safety Bot ⛑️')
 
