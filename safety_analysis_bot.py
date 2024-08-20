@@ -4,5 +4,5 @@ st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
 
-st.chat_message(name="Analyst", avatar='👤'):
+with st.chat_message(name="Analyst", avatar='👤'):
   st.write("Test")
