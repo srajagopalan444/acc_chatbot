@@ -20,6 +20,7 @@ if prompt := st.chat_input("Enter the description of the incident..."):
     # Add user message to chat history
     st.session_state.messages.append({"role": "Analyst", "content": prompt})
 
+import random
 def response_generator():
   response = random.choice(
         [
