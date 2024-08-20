@@ -20,9 +20,17 @@ if prompt := st.chat_input("Enter the description of the incident..."):
     # Add user message to chat history
     st.session_state.messages.append({"role": "Analyst", "content": prompt})
 
-response = "How may I help you today?"
-# Display assistant response in chat message container
+def response_generator():
+  response = random.choice(
+        [
+            "Hello there! How can I assist you today?",
+            "Hi, human! Is there anything I can help you with?",
+            "Do you need help?",
+        ]
+    )
+
 with st.chat_message("assistant"):
-    st.markdown(response)
+    response = st.write_stream(response_generator())
 # Add assistant response to chat history
 st.session_state.messages.append({"role": "assistant", "content": response})
+
