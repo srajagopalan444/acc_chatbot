@@ -1,7 +1,27 @@
 import streamlit as st
-
 import random
 import time
+import numpy as np
+
+import torch
+from transformers import RobertaForSequenceClassification
+from torch.utils.data import TensorDataset, DataLoader
+from tqdm import tqdm
+import gdown
+
+
+@st.cache_resource
+def load_model_from_drive(url):
+    output = 'model.pt'
+    gdown.download(url, output, quiet=False)
+    model = torch.load(output)
+    model.eval()
+    return model
+
+
+
+
+
 def response_generator():
   response = random.choice(
         [
@@ -14,11 +34,15 @@ def response_generator():
         yield word + " "
         time.sleep(0.05)
 
+
 st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
 
+url = 'https://drive.google.com/file/d/1-0cIDQrII4JaRL3Vvnz07Ad-Yccnc_nV/view?usp=sharing'
+model = load_model_from_drive(url)
 
+st.write("Model loaded successfully!")
 
 #initialise history storage
 if 'messages' not in st.session_state:
