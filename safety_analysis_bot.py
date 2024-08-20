@@ -20,8 +20,6 @@ def load_model_from_drive(url):
 
 
 
-
-
 def response_generator():
   response = random.choice(
         [
