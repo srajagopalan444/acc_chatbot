@@ -32,7 +32,7 @@ if prompt := st.chat_input("Enter the description of the incident..."):
     # Add user message to chat history
     st.session_state.messages.append({"role": "Analyst", "content": prompt})
   with st.chat_message("user"):
-        st.markdown(prompt)
+      st.markdown(prompt)
 
 
 with st.chat_message("assistant"):
