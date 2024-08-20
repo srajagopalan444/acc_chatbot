@@ -4,11 +4,7 @@ st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
 
-with st.chat_message(name="Analyst", avatar='👤'):
-  st.write("Hi")
-with st.chat_message(name="Assistant"):
-  st.write("How many I help you today?")
-
+#initialise history storage
 if 'messages' not in st.session_state:
   st.session_state.messages=[]
 
