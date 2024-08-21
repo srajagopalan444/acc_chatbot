@@ -41,9 +41,10 @@ def nlp_text_prep(text):
     #stop_words = set(stopwords.words('english'))
     words = [word for word in text.split() if not word.isdigit()]
     return ' '.join(words)
-
+'''
 acc_data['Description_cleaned'] = acc_data['Descripton'].apply(nlp_text_prep)
-acc_data['Description_cleaned'].head()                                              
+acc_data['Description_cleaned'].head() 
+'''
 
 #RoBERTa Tokenizer
 from transformers import RobertaTokenizer
