@@ -9,13 +9,17 @@ import torch
 from transformers import RobertaForSequenceClassification
 from torch.utils.data import TensorDataset, DataLoader
 from tqdm import tqdm
-import gdown
+import requests
 
 
 @st.cache_resource
 def load_model_from_drive(url):
+    response = requests.get(url, stream=True)
     output = 'model.pt'
-    gdown.download(url, output, quiet=False)
+    with open(output, 'wb') as f:
+        for chunk in response.iter_content(chunk_size=8192):
+            if chunk:
+                f.write(chunk)
     model = torch.load(output)
     model.eval()
     return model
@@ -42,7 +46,8 @@ st.write('Hello world!')
 file_id = '1-0cIDQrII4JaRL3Vvnz07Ad-Yccnc_nV'
 drive_url = f'https://drive.google.com/uc?id={file_id}'
 
-model = load_model_from_drive(drive_url)
+with st.spinner('Downloading model...'):
+    model = load_model_from_drive(drive_url)
 
 st.write("Model loaded successfully!")
 
