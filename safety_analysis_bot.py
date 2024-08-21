@@ -35,7 +35,7 @@ def response_generator():
 st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
-acc_data.head()
+acc_data
   
 
 
