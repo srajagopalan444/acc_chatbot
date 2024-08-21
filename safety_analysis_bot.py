@@ -14,8 +14,8 @@ from tqdm import tqdm
 
 #Loading the data
 acc_data = pd.read_csv("https://github.com/srajagopalan444/acc_chatbot/blob/master/IHMStefanini_industrial_safety_and_health_database_with_accidents_description.csv")
-acc_data1 = acc_data.drop("Unnamed:0",  inplace=True)
-acc_data1
+acc_data = acc_data.drop("Unnamed:0",  inplace=True)
+acc_data
 
 
 
@@ -35,7 +35,7 @@ def response_generator():
 st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
-st.write(acc_data1.columns)
+st.write(acc_data.columns)
   
 
 
