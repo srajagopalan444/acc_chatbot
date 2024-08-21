@@ -42,6 +42,9 @@ def nlp_text_prep(text):
     words = [word for word in text.split() if not word.isdigit()]
     return ' '.join(words)
 
+acc_data['Description_cleaned'] = nlp_text_prep(acc_data['Decripton']
+acc_data['Description_cleaned'].head()                                              
+
 #RoBERTa Tokenizer
 from transformers import RobertaTokenizer
 tokenizer_r = RobertaTokenizer.from_pretrained("roberta-base")
@@ -136,16 +139,14 @@ def train_model_ft_ul(model,uf_layers, X_train_bert, X_val_bert, num_classes, le
     training_time_bert_ul = end_time - start_time
     print(f"Training completed in {training_time_bert_ul:.2f} seconds")
 
+
 ##Response Generator
-def response_generator():
-  response = random.choice(
-        [
-            "Hello there! How can I assist you today?",
-            "Hi, human! Is there anything I can help you with?",
-            "Do you need help?",
-        ]
-    )
-  for word in response.split():
+def response_generator(prompt):
+    prompt = nlp_text_prep(prompt)
+    prompt = roberta_text_prep(prompt)
+    acc_pred = predict_accident_roberta(prompt)
+    response = f"The predicted accident level is {acc_pred}
+    for word in response.split():
         yield word + " "
         time.sleep(0.05)
 
