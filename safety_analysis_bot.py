@@ -12,7 +12,8 @@ from tqdm import tqdm
 
 
 #Loading the data
-
+acc_data = pd.read_csv("IHMStefanini_industrial_safety_and_health_database_with_accidents_description.csv")
+acc_data.head()
 
 
 def response_generator():
