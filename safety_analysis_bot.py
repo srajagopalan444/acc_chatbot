@@ -145,7 +145,7 @@ def response_generator(prompt):
     prompt = nlp_text_prep(prompt)
     prompt = roberta_text_prep(prompt)
     acc_pred = predict_accident_roberta(prompt)
-    response = f"The predicted accident level is {acc_pred}
+    response = f"The predicted accident level is {acc_pred}"
     for word in response.split():
         yield word + " "
         time.sleep(0.05)
