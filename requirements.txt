@@ -6,5 +6,4 @@ nltk
 torch
 tqdm
 scikit-learn
-gdown
-requests
+
