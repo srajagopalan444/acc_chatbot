@@ -34,7 +34,7 @@ def response_generator():
 st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
-st.write(acc_data.head())
+print(acc_data.head())
 
 
 #initialise history storage
