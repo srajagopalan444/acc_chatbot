@@ -35,7 +35,7 @@ def response_generator():
 st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
-st.write(acc_data.columns)
+st.write(acc_data.columns[0])
   
 
 
