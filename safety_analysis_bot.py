@@ -152,12 +152,10 @@ def response_generator(prompt):
 acc_data['Description_cleaned'] = acc_data['Description'].apply(nlp_text_prep)
 #acc_data['Description_cleaned'].head() 
 
-##Roberta Tokenizer
-acc_data['Description_tokenized'] = acc_data['Description_cleaned'].apply(roberta_text_prep)
-#acc_data['Description_tokenized'].head() 
+
 
 ##Train-test split
-X = acc_data['Description_tokenized']
+X = acc_data['Description_cleaned']
 y = acc_data['Accident Level']
 
 from sklearn.model_selection import train_test_split
