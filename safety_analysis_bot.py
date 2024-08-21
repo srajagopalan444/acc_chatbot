@@ -20,8 +20,6 @@ def load_model_from_drive(url):
     model.eval()
     return model
 
-
-
 def response_generator():
   response = random.choice(
         [
@@ -38,6 +36,15 @@ def response_generator():
 st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
+
+
+
+file_id = '1-0cIDQrII4JaRL3Vvnz07Ad-Yccnc_nV'
+drive_url = f'https://drive.google.com/uc?id={file_id}'
+
+model = load_model_from_drive(drive_url)
+
+st.write("Model loaded successfully!")
 
 
 
