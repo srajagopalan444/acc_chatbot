@@ -76,13 +76,13 @@ def train_model_roberta(model,uf_layers, X_train, X_test, num_classes, learning_
       X_test_ids.append(ids)
       X_test_masks.append(mask)
 
-    train_data = TensorDataset(X_train_ids,
-                         X_train_masks,
-                         y_train) # Convert to NumPy array first
+    train_data = TensorDataset(torch.tensor(X_train_ids),
+                         torch.tensor(X_train_masks),
+                         torch.tensor(y_train) # Convert to NumPy array first
 
-    test_data = TensorDataset(X_test_ids,
-                            X_test_masks,
-                            y_test) # Convert to NumPy array first
+    test_data = TensorDataset(torch.tensor(X_test_ids),
+                            torch.tensor(X_test_masks),
+                            torch.tensor(y_test)) # Convert to NumPy array first
 
     for epoch in range(epochs):
       train_dataloader = DataLoader(train_data, batch_size=8)  # Adjust batch size based on memory constraints
