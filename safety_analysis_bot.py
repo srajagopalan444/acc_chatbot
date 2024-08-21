@@ -56,7 +56,7 @@ def roberta_text_prep(text):
 
 #Training the model
 #Function to create a base RoBERTa model
-def train_model_roberta(model,uf_layers, X_train, X_test, num_classes, learning_rate,epochs, optimizer,scheduler):
+def train_model_roberta(model,uf_layers, X_train, X_test, y_train, y_test, num_classes, learning_rate,epochs, optimizer,scheduler):
     #Unfreezing last x layers
     for param in model.roberta.encoder.layer[uf_layers:].parameters():
       param.requires_grad = True
@@ -182,7 +182,7 @@ total_steps = len(X_train) * epochs
 warmup_steps = 0.001 * total_steps
 scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=warmup_steps, num_training_steps=total_steps)
 
-train_model_roberta(model_roberta_ft,uf_layers, X_train, X_test, num_classes, learning_rate,epochs, optimizer,scheduler)
+train_model_roberta(model_roberta_ft,uf_layers, X_train, X_test,y_train, y_test,  num_classes, learning_rate,epochs, optimizer,scheduler)
 print("Model successfully trained")
 
 
