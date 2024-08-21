@@ -154,16 +154,15 @@ acc_data['Description_cleaned'] = acc_data['Description'].apply(nlp_text_prep)
 #acc_data['Description_cleaned'].head() 
 
 
-
-##Train-test split
-X = acc_data['Description_cleaned']
-y = acc_data['Accident Level']
-
 #label encoding for target variable
 from sklearn.preprocessing import LabelEncoder
 le = LabelEncoder()
 acc_data['Accident Level'] = le.fit_transform(acc_data['Accident Level'])
 acc_data['Potential Accident Level'] = le.fit_transform(acc_data['Potential Accident Level'])
+
+##Train-test split
+X = acc_data['Description_cleaned']
+y = acc_data['Accident Level']
 
 from sklearn.model_selection import train_test_split
 #Stratified split is required because of a heavily imbalanced dataframe
