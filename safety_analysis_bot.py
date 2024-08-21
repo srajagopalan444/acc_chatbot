@@ -42,10 +42,6 @@ def nlp_text_prep(text):
     words = [word for word in text.split() if not word.isdigit()]
     return ' '.join(words)
 
-acc_data['Description_cleaned'] = acc_data['Description'].apply(nlp_text_prep)
-acc_data['Description_cleaned'].head() 
-
-
 #RoBERTa Tokenizer
 from transformers import RobertaTokenizer
 tokenizer_r = RobertaTokenizer.from_pretrained("roberta-base")
@@ -56,18 +52,6 @@ def roberta_text_prep(text):
   attention_mask = tokens['attention_mask']
   return input_ids, attention_mask
 
-acc_data['Description_tokenized'] = acc_data['Description_cleaned'].apply(roberta_text_prep)
-acc_data['Description_tokenized'].head() 
-
-#Predict Accident Level
-def predict_accident_roberta(text):
-  with torch.no_grad():
-      text = nlp_text_prep(text)
-      input_ids, attention_mask = roberta_text_prep(text)
-      logits = model(torch.tensor([input_ids]), attention_mask=torch.tensor([attention_mask])).logits
-      predicted_label = torch.argmax(logits, dim=1).item()
-      mapped_label = predicted_label + 1  # Map 0 to 1, 1 to 2, etc.
-  return mapped_label
 
 #Training the model
 #Function to train model while also allowing to unfreeze layers
@@ -143,6 +127,15 @@ def train_model_ft_ul(model,uf_layers, X_train_bert, X_val_bert, num_classes, le
     training_time_bert_ul = end_time - start_time
     print(f"Training completed in {training_time_bert_ul:.2f} seconds")
 
+#Predict Accident Level
+def predict_accident_roberta(text):
+  with torch.no_grad():
+      text = nlp_text_prep(text)
+      input_ids, attention_mask = roberta_text_prep(text)
+      logits = model(torch.tensor([input_ids]), attention_mask=torch.tensor([attention_mask])).logits
+      predicted_label = torch.argmax(logits, dim=1).item()
+      mapped_label = predicted_label + 1  # Map 0 to 1, 1 to 2, etc.
+  return mapped_label
 
 ##Response Generator
 def response_generator(prompt):
@@ -153,6 +146,41 @@ def response_generator(prompt):
     for word in response.split():
         yield word + " "
         time.sleep(0.05)
+
+#Applying functions
+##Basic NLP Cleanup
+acc_data['Description_cleaned'] = acc_data['Description'].apply(nlp_text_prep)
+#acc_data['Description_cleaned'].head() 
+
+##Roberta Tokenizer
+acc_data['Description_tokenized'] = acc_data['Description_cleaned'].apply(roberta_text_prep)
+#acc_data['Description_tokenized'].head() 
+
+##Train-test split
+X = acc_data['Description_tokenized']
+y = acc_data['Accident Level']
+
+from sklearn.model_selection import train_test_split
+#Stratified split is required because of a heavily imbalanced dataframe
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y)
+
+##Training the model
+# Define model hyperparameters
+model_name = "roberta-base"
+model_roberta_ft = RobertaForSequenceClassification.from_pretrained(model_name, num_labels=num_classes)
+num_classes = 5
+learning_rate = 1e-3
+epochs = 5
+uf_layers = -2
+# Define optimizer and scheduler
+weight_decay = 0.001
+optimizer = torch.optim.AdamW(model_roberta_ft.parameters(), lr=learning_rate, weight_decay=weight_decay )
+total_steps = len(X_train) * epochs
+warmup_steps = 0.001 * total_steps
+scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=warmup_steps, num_training_steps=total_steps)
+
+train_model_roberta(model_roberta_ft,uf_layers, X_train, X_test, num_classes, learning_rate,epochs, optimizer,scheduler)
+print("Model successfully trained")
 
 
 st.title('⛑️ Safety Bot ⛑️')
