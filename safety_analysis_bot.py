@@ -15,7 +15,7 @@ from tqdm import tqdm
 #Loading the data
 acc_data = pd.read_csv("IHMStefanini_industrial_safety_and_health_database_with_accidents_description.csv")
 col = acc_data.columns[0]
-acc_data = acc_data.drop(col,  inplace=True)
+acc_data = acc_data.drop(acc_data.columns[acc_data.columns.str.contains('Unnamed')], axis=1)
 acc_data
 
 
