@@ -6,4 +6,5 @@ nltk
 torch
 tqdm
 scikit-learn
+tensorflow
 
