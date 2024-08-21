@@ -54,34 +54,34 @@ def roberta_text_prep(text):
 
 
 #Training the model
-#Function to train model while also allowing to unfreeze layers
-def train_model_ft_ul(model,uf_layers, X_train_bert, X_val_bert, num_classes, learning_rate,epochs, optimizer,scheduler):
+#Function to create a base RoBERTa model
+def train_model_roberta(model,uf_layers, X_train, X_test, num_classes, learning_rate,epochs, optimizer,scheduler):
     #Unfreezing last x layers
-    for param in model.bert.encoder.layer[uf_layers:].parameters():
-        param.requires_grad = True
+    for param in model.roberta.encoder.layer[uf_layers:].parameters():
+      param.requires_grad = True
 
     start_time = time.time()
 
     # Prepare training and validation data
     X_train_ids, X_train_masks = [], []
-    for text in X_train_bert:
-      ids, mask = bert_text_prep(text)
+    for text in X_train:
+      ids, mask = roberta_text_prep(text)
       X_train_ids.append(ids)
       X_train_masks.append(mask)
 
-    X_val_ids, X_val_masks = [], []
-    for text in X_val_bert:
-      ids, mask = bert_text_prep(text)
-      X_val_ids.append(ids)
-      X_val_masks.append(mask)
+    X_test_ids, X_test_masks = [], []
+    for text in X_test:
+      ids, mask = roberta_text_prep(text)
+      X_test_ids.append(ids)
+      X_test_masks.append(mask)
 
     train_data = TensorDataset(torch.tensor(X_train_ids),
                           torch.tensor(X_train_masks),
-                          torch.tensor(y_train_bert.to_numpy())) # Convert to NumPy array first
+                          torch.tensor(y_train.to_numpy())) # Convert to NumPy array first
 
-    val_data = TensorDataset(torch.tensor(X_val_ids),
-                            torch.tensor(X_val_masks),
-                            torch.tensor(y_val_bert.to_numpy())) # Convert to NumPy array first
+    test_data = TensorDataset(torch.tensor(X_test_ids),
+                            torch.tensor(X_test_masks),
+                            torch.tensor(y_test.to_numpy())) # Convert to NumPy array first
 
     for epoch in range(epochs):
       train_dataloader = DataLoader(train_data, batch_size=8)  # Adjust batch size based on memory constraints
@@ -112,20 +112,20 @@ def train_model_ft_ul(model,uf_layers, X_train_bert, X_val_bert, num_classes, le
         print(f"Epoch: {epoch+1}, Training Loss: {train_loss/len(train_data)}")
 
         with torch.no_grad():
-          val_loss = 0
-          val_preds = []
-          val_labels = []
-          for batch in DataLoader(val_data, batch_size=8):
+          test_loss = 0
+          test_preds = []
+          test_labels = []
+          for batch in DataLoader(test_data, batch_size=8):
             input_ids, attention_mask, labels = batch
             outputs = model(input_ids, attention_mask=attention_mask, labels=labels) # Get model outputs
-            val_loss += outputs.loss.item() # Accumulate validation loss
-            val_preds.extend(torch.argmax(outputs.logits, dim=1).cpu().numpy())  # Get predicted labels from logits
-            val_labels.extend(labels.cpu().numpy()) # Accumulate true labels
-          print(f"Epoch: {epoch+1}, Validation Loss: {val_loss/len(val_data)}")
+            test_loss += outputs.loss.item() # Accumulate validation loss
+            test_preds.extend(torch.argmax(outputs.logits, dim=1).cpu().numpy())  # Get predicted labels from logits
+            test_labels.extend(labels.cpu().numpy()) # Accumulate true labels
+          print(f"Epoch: {epoch+1}, Test Loss: {test_loss/len(test_data)}")
 
     end_time = time.time()  # Record end time
-    training_time_bert_ul = end_time - start_time
-    print(f"Training completed in {training_time_bert_ul:.2f} seconds")
+    training_time_r_ul = end_time - start_time
+    print(f"Training completed in {training_time_r_ul:.2f} seconds")
 
 #Predict Accident Level
 def predict_accident_roberta(text):
