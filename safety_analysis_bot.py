@@ -167,8 +167,8 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratif
 ##Training the model
 # Define model hyperparameters
 model_name = "roberta-base"
-model_roberta_ft = RobertaForSequenceClassification.from_pretrained(model_name, num_labels=num_classes)
 num_classes = 5
+model_roberta_ft = RobertaForSequenceClassification.from_pretrained(model_name, num_labels=num_classes)
 learning_rate = 1e-3
 epochs = 5
 uf_layers = -2
