@@ -1,6 +1,4 @@
-git add requirements.txt
-git commit -m "Add gdown to requirements"
-git push
+
 
 import streamlit as st
 import random
