@@ -56,6 +56,9 @@ def roberta_text_prep(text):
   attention_mask = tokens['attention_mask']
   return input_ids, attention_mask
 
+acc_data['Description_cleaned'] = acc_data['Description_cleaned'].apply(roberta_text_prep)
+acc_data['Description_cleaned'].head() 
+
 #Predict Accident Level
 def predict_accident_roberta(text):
   with torch.no_grad():
