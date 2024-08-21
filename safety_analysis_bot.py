@@ -165,6 +165,7 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y)
 
 ##Training the model
+from transformers import AdamW, get_linear_schedule_with_warmup
 # Define model hyperparameters
 model_name = "roberta-base"
 num_classes = 5
