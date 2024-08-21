@@ -39,10 +39,7 @@ st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
 
-url = 'https://drive.google.com/file/d/1-0cIDQrII4JaRL3Vvnz07Ad-Yccnc_nV/view?usp=sharing'
-model = load_model_from_drive(url)
 
-st.write("Model loaded successfully!")
 
 #initialise history storage
 if 'messages' not in st.session_state:
