@@ -12,17 +12,7 @@ from tqdm import tqdm
 import requests
 
 
-@st.cache_resource
-def load_model_from_drive(url):
-    response = requests.get(url, stream=True)
-    output = 'model.pt'
-    with open(output, 'wb') as f:
-        for chunk in response.iter_content(chunk_size=8192):
-            if chunk:
-                f.write(chunk)
-    model = torch.load(output)
-    model.eval()
-    return model
+
 
 def response_generator():
   response = random.choice(
@@ -40,17 +30,6 @@ def response_generator():
 st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
-
-
-
-file_id = '1-0cIDQrII4JaRL3Vvnz07Ad-Yccnc_nV'
-drive_url = f'https://drive.google.com/uc?id={file_id}'
-
-with st.spinner('Downloading model...'):
-    model = load_model_from_drive(drive_url)
-
-st.write("Model loaded successfully!")
-
 
 
 #initialise history storage
