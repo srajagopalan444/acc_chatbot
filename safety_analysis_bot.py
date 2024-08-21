@@ -16,7 +16,6 @@ from tqdm import tqdm
 acc_data = pd.read_csv("IHMStefanini_industrial_safety_and_health_database_with_accidents_description.csv")
 col = acc_data.columns[0]
 acc_data = acc_data.drop(acc_data.columns[acc_data.columns.str.contains('Unnamed')], axis=1)
-acc_data
 
 
 
@@ -36,7 +35,7 @@ def response_generator():
 st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
-st.write(acc_data.columns[0])
+st.write(acc_data.head())
   
 
 
