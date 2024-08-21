@@ -42,7 +42,7 @@ def nlp_text_prep(text):
     words = [word for word in text.split() if not word.isdigit()]
     return ' '.join(words)
 
-acc_data['Description_cleaned'] = nlp_text_prep(acc_data['Decripton'])
+acc_data['Description_cleaned'] = nlp_text_prep(acc_data['Descripton'])
 acc_data['Description_cleaned'].head()                                              
 
 #RoBERTa Tokenizer
