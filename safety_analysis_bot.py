@@ -35,8 +35,8 @@ st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
 with st.expander("Accident Data with Descriptions"):
-  st.write("Data")
-  acc_data.head()
+  st.write(acc_data.head())
+  
 
 
 #initialise history storage
