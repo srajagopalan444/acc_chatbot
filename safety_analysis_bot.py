@@ -18,6 +18,30 @@ columns =['Accident Level', 'Potential Accident Level', 'Description']
 acc_data = acc_data[columns]
 acc_data
 
+#Required functions
+#NLP Basic Prep
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+
+#nltk.download('punkt')
+#nltk.download('stopwords')
+#nltk.download('wordnet')
+
+def nlp_text_prep(text):
+    # Lowercase conversion
+    text = text.lower()
+    # Punctuation, Special Charcters removal (optional)
+    text = ''.join([char for char in text if char.isalnum() or char.isspace()])  # Adjust for desired punctuation handling
+    #Stopwords and numeric characters removal
+    #stop_words = set(stopwords.words('english'))
+    words = [word for word in text.split() if not word.isdigit()]
+    return ' '.join(words)
+
+#Applying nlp prep
+acc_data['Description_cleaned'] = acc_data['Description'].apply(nlp_text_prep)
+#acc_data['Description_cleaned'].head() 
 
 st.title('⛑️ Safety Bot ⛑️')
 
