@@ -53,12 +53,17 @@ acc_data['Potential Accident Level'] = le.fit_transform(acc_data['Potential Acci
 X = acc_data['Description_cleaned']
 y = acc_data['Accident Level']
 
+from sklearn.model_selection import train_test_split
+#Stratified split is required because of a heavily imbalanced dataframe
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y)
+
+
 st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
 st.write(acc_data.head())
 st.write(X.head())
 st.write(y.head())
-
+st.write('Shape of X_train:",X_train.shape())
 
 
