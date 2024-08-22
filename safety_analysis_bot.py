@@ -10,8 +10,9 @@ from torch.utils.data import TensorDataset, DataLoader
 from tqdm import tqdm
 import tensorflow as tf
 
-model_path = "/content/drive/MyDrive/Capstone/Data Files/state_dict.pt"  # Replace with the actual path
-model = RobertaForSequenceClassification.from_pretrained(model_path)
+
+model_name = "sudraj/acc_state_dic"
+model = RobertaForSequenceClassification.from_pretrained(model_name)
 
 
 st.title('⛑️ Safety Bot ⛑️')
