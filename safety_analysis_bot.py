@@ -21,3 +21,10 @@ acc_data = acc_data[columns]
 acc_data
 
 
+st.title('⛑️ Safety Bot ⛑️')
+
+st.write('Hello world!')
+st.write(acc_data.head())
+
+
+
