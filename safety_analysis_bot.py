@@ -111,18 +111,18 @@ def train_model_roberta(model,uf_layers, X_train, X_test, y_train, y_test, num_c
           train_preds.extend(torch.argmax(outputs.logits, dim=1).cpu().numpy())  # Get predicted labels from logits
           train_labels.extend(labels.cpu().numpy()) # Accumulate true labels
         print(f"Epoch: {epoch+1}, Training Loss: {train_loss/len(train_data)}")
-
-        with torch.no_grad():
-          test_loss = 0
-          test_preds = []
-          test_labels = []
-          for batch in DataLoader(test_data, batch_size=8):
-            input_ids, attention_mask, labels = batch
-            outputs = model(input_ids, attention_mask=attention_mask, labels=labels) # Get model outputs
-            test_loss += outputs.loss.item() # Accumulate validation loss
-            test_preds.extend(torch.argmax(outputs.logits, dim=1).cpu().numpy())  # Get predicted labels from logits
-            test_labels.extend(labels.cpu().numpy()) # Accumulate true labels
-          print(f"Epoch: {epoch+1}, Test Loss: {test_loss/len(test_data)}")
+       
+       with torch.no_grad():
+         test_loss = 0
+         test_preds = []
+         test_labels = []
+         for batch in DataLoader(test_data, batch_size=8):
+           input_ids, attention_mask, labels = batch
+           outputs = model(input_ids, attention_mask=attention_mask, labels=labels) # Get model outputs
+           test_loss += outputs.loss.item() # Accumulate validation loss
+           test_preds.extend(torch.argmax(outputs.logits, dim=1).cpu().numpy())  # Get predicted labels from logits
+           test_labels.extend(labels.cpu().numpy()) # Accumulate true labels
+        print(f"Epoch: {epoch+1}, Test Loss: {test_loss/len(test_data)}")
 
     end_time = time.time()  # Record end time
     training_time_r_ul = end_time - start_time
