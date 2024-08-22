@@ -102,7 +102,7 @@ epochs = 5
 uf_layers = -2
 # Define optimizer and scheduler
 weight_decay = 0.001
-optimizer = torch.optim.AdamW(model_roberta_ft.parameters(), lr=learning_rate, weight_decay=weight_decay )
+optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay )
 total_steps = len(X_train) * epochs
 warmup_steps = 0.001 * total_steps
 scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=warmup_steps, num_training_steps=total_steps)
