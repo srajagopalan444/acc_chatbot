@@ -90,8 +90,24 @@ test_data = TensorDataset(torch.tensor(X_test_ids),
                          torch.tensor(X_test_masks),
                          torch.tensor(y_test.to_numpy())) # Convert to NumPy array first
 
+##Training the model
+from transformers import AdamW, get_linear_schedule_with_warmup
+# Define model hyperparameters
+model_name = "roberta-base"
+num_classes = 5
+model_roberta_ft = RobertaForSequenceClassification.from_pretrained(model_name, num_labels=num_classes)
+learning_rate = 1e-3
+epochs = 5
+uf_layers = -2
+# Define optimizer and scheduler
+weight_decay = 0.001
+optimizer = torch.optim.AdamW(model_roberta_ft.parameters(), lr=learning_rate, weight_decay=weight_decay )
+total_steps = len(X_train) * epochs
+warmup_steps = 0.001 * total_steps
+scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=warmup_steps, num_training_steps=total_steps)
+
 # Training loop
-for epoch in range(3): #epochs
+for epoch in range(epochs):
     train_dataloader = DataLoader(train_data, batch_size=8)
     model.train()
 
