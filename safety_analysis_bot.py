@@ -49,11 +49,16 @@ le = LabelEncoder()
 acc_data['Accident Level'] = le.fit_transform(acc_data['Accident Level'])
 acc_data['Potential Accident Level'] = le.fit_transform(acc_data['Potential Accident Level'])
 
+##Train-test split
+X = acc_data['Description_cleaned']
+y = acc_data['Accident Level']
 
 st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
 st.write(acc_data.head())
+st.write(X.head())
+st.write(y.head())
 
 
 
