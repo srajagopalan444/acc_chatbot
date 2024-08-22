@@ -58,6 +58,29 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y)
 
 
+#RoBERTa Tokenizer
+from transformers import RobertaTokenizer
+tokenizer_r = RobertaTokenizer.from_pretrained("roberta-base")
+def roberta_text_prep(text):
+  # Max length of 256 ensures a larger yet more standard acceptance of text input size
+  tokens = tokenizer_r.encode_plus(text, add_special_tokens=True, max_length=256, truncation=True, padding='max_length')
+  input_ids = tokens['input_ids']
+  attention_mask = tokens['attention_mask']
+  return input_ids, attention_mask
+
+# Prepare training and validation data
+X_train_ids, X_train_masks = [], []
+for text in X_train:
+    ids, mask = roberta_text_prep(text)
+    X_train_ids.append(ids)
+    X_train_masks.append(mask)
+
+X_test_ids, X_test_masks = [], []
+for text in X_test:
+    ids, mask = roberta_text_prep(text)
+    X_test_ids.append(ids)
+    X_test_masks.append(mask)
+
 st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
@@ -68,5 +91,10 @@ st.write("Shape of X_train:",X_train.shape)
 st.write("Shape of X_test:",X_test.shape)
 st.write("Shape of y_train:",y_train.shape)
 st.write("Shape of y_test:",y_test.shape)
+
+st.write("Shape of X_train:",X_train_ids.shape)
+st.write("Shape of X_test:",X_train_masks.shape)
+st.write("Shape of y_train:",X_test_ids.shape)
+st.write("Shape of y_test:",X_test_masks.shape)
 
 
