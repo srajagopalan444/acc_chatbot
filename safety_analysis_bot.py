@@ -12,7 +12,7 @@ import tensorflow as tf
 
 
 model_name = "sudraj/acc_state_dic"
-model = RobertaForSequenceClassification.from_pretrained(model_name, use_auth_token="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")
+model = RobertaForSequenceClassification.from_pretrained(model_name)
 
 
 st.title('⛑️ Safety Bot ⛑️')
