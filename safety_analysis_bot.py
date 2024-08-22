@@ -103,7 +103,7 @@ for epoch in range(epochs):
         loss = outputs[0]
         loss.backward()
         optimizer.step()
-        scheduler.step()   
+        scheduler.step()
 
 
     # Validation loop
