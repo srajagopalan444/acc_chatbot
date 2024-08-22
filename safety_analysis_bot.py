@@ -81,6 +81,16 @@ for text in X_test:
     X_test_ids.append(ids)
     X_test_masks.append(mask)
 
+
+train_data = TensorDataset(torch.tensor(X_train_ids),
+                         torch.tensor(X_train_masks),
+                         torch.tensor(y_train.to_numpy())) # Convert to NumPy array first
+
+test_data = TensorDataset(torch.tensor(X_test_ids),
+                         torch.tensor(X_test_masks),
+                         torch.tensor(y_test.to_numpy())) # Convert to NumPy array first
+
+
 st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
@@ -92,9 +102,12 @@ st.write("Shape of X_test:",X_test.shape)
 st.write("Shape of y_train:",y_train.shape)
 st.write("Shape of y_test:",y_test.shape)
 
-st.write("X_train_ids:", type(X_train_ids[0][0]))
-st.write("X_train_masks:",type(X_train_masks[0][0]))
-st.write("X_test_ids:",type(X_test_ids[0][0]))
-st.write("X_test_masks:",type(X_test_masks[0][0]))
+st.write("X_train_ids:", X_train_ids)
+st.write("X_train_masks:",X_train_masks)
+st.write("X_test_ids:",X_test_ids)
+st.write("X_test_masks:",X_test_masks)
+
+st.write("Train Data:", train_data[0])
+st.write("Test Data:", test_data[0])
 
 
