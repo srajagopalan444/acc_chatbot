@@ -91,7 +91,7 @@ test_data = TensorDataset(torch.tensor(X_test_ids),
                          torch.tensor(y_test.to_numpy())) # Convert to NumPy array first
 
 # Training loop
-for epoch in range(epochs):
+for epoch in range(3): #epochs
     train_dataloader = DataLoader(train_data, batch_size=8)
     model.train()
 
