@@ -93,8 +93,8 @@ st.write("Shape of y_train:",y_train.shape)
 st.write("Shape of y_test:",y_test.shape)
 
 st.write("X_train_ids:",X_train_ids[0])
-st.write("X_train_masks:",X_train_masks)
-st.write("X_test_ids:",X_test_ids)
-st.write("X_test_masks:",X_test_masks)
+st.write("X_train_masks:",X_train_masks[0])
+st.write("X_test_ids:",X_test_ids[0])
+st.write("X_test_masks:",X_test_masks[0])
 
 
