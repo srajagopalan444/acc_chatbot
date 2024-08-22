@@ -64,6 +64,6 @@ st.write('Hello world!')
 st.write(acc_data.head())
 st.write(X.head())
 st.write(y.head())
-st.write('Shape of X_train:",X_train.shape())
+st.write("Shape of X_train:",X_train.shape())
 
 
