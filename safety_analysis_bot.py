@@ -95,7 +95,8 @@ from transformers import AdamW, get_linear_schedule_with_warmup
 # Define model hyperparameters
 model_name = "roberta-base"
 num_classes = 5
-model_roberta_ft = RobertaForSequenceClassification.from_pretrained(model_name, num_labels=num_classes)
+#_roberta_ft 
+model= RobertaForSequenceClassification.from_pretrained(model_name, num_labels=num_classes)
 learning_rate = 1e-3
 epochs = 5
 uf_layers = -2
