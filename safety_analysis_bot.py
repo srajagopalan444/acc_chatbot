@@ -11,9 +11,14 @@ from tqdm import tqdm
 import tensorflow as tf
 
 
+from transformers import AutoModel
+
+model = AutoModel.from_pretrained("sudraj/acc_state_dic")
+
+'''
 model_name = "https://huggingface.co/sudraj/acc_state_dic/tree/main"
 model = RobertaForSequenceClassification.from_pretrained(model_name)
-
+'''
 
 st.title('⛑️ Safety Bot ⛑️')
 
