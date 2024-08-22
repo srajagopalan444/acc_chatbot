@@ -90,6 +90,36 @@ test_data = TensorDataset(torch.tensor(X_test_ids),
                          torch.tensor(X_test_masks),
                          torch.tensor(y_test.to_numpy())) # Convert to NumPy array first
 
+# Training loop
+for epoch in range(epochs):
+    train_dataloader = DataLoader(train_data, batch_size=8)
+    model.train()
+
+    # Training loop
+    for batch in tqdm(train_dataloader):
+        input_ids, attention_mask, labels = batch
+        optimizer.zero_grad()
+        outputs = model(input_ids, attention_mask=attention_mask, labels=labels)
+        loss = outputs[0]
+        loss.backward()
+        optimizer.step()
+        scheduler.step()   
+
+
+    # Validation loop
+    model.eval()
+    with torch.no_grad():
+        test_loss = 0
+        test_preds = []
+        test_labels = []
+        for batch in DataLoader(test_data, batch_size=8):
+            input_ids, attention_mask, labels = batch
+            outputs = model(input_ids, attention_mask=attention_mask, labels=labels)
+            test_loss += outputs.loss.item()
+            test_preds.extend(torch.argmax(outputs.logits, dim=1).cpu().numpy())
+            test_labels.extend(labels.cpu().numpy())
+
+        print(f"Epoch: {epoch+1}, Training Loss: {train_loss/len(train_data)}, Test Loss: {test_loss/len(test_data)}")
 
 st.title('⛑️ Safety Bot ⛑️')
 
