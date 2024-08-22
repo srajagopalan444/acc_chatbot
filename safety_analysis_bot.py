@@ -11,7 +11,7 @@ from tqdm import tqdm
 import tensorflow as tf
 
 
-model_name = "https://huggingface.com/models/sudraj/acc_state_dic"
+model_name = "acc_state_dic"
 model = RobertaForSequenceClassification.from_pretrained(model_name)
 
 
