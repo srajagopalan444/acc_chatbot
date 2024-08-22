@@ -101,12 +101,12 @@ st.write("Shape of X_train:",X_train.shape)
 st.write("Shape of X_test:",X_test.shape)
 st.write("Shape of y_train:",y_train.shape)
 st.write("Shape of y_test:",y_test.shape)
+
 '''
 st.write("X_train_ids:", X_train_ids)
 st.write("X_train_masks:",X_train_masks)
 st.write("X_test_ids:",X_test_ids)
 st.write("X_test_masks:",X_test_masks)
-
 st.write("Train Data:", train_data[0])
 st.write("Test Data:", test_data[0])
 '''
