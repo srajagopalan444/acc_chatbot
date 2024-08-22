@@ -92,9 +92,9 @@ st.write("Shape of X_test:",X_test.shape)
 st.write("Shape of y_train:",y_train.shape)
 st.write("Shape of y_test:",y_test.shape)
 
-st.write("Shape of X_train:",X_train_ids.dtype)
-st.write("Shape of X_test:",X_train_masks.dtype)
-st.write("Shape of y_train:",X_test_ids.dtype)
-st.write("Shape of y_test:",X_test_masks.dtype)
+st.write("Shape of X_train:",X_train_ids.dtype())
+st.write("Shape of X_test:",X_train_masks.dtype())
+st.write("Shape of y_train:",X_test_ids.dtype())
+st.write("Shape of y_test:",X_test_masks.dtype())
 
 
