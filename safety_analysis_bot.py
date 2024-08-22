@@ -10,7 +10,7 @@ from torch.utils.data import TensorDataset, DataLoader
 from tqdm import tqdm
 import tensorflow as tf
 
-model_path = "https://drive.google.com/file/d/1-0cIDQrII4JaRL3Vvnz07Ad-Yccnc_nV/view?usp=drive_link"  # Replace with the actual path
+model_path = "/content/drive/MyDrive/Capstone/Data Files/state_dict.pt"  # Replace with the actual path
 model = RobertaForSequenceClassification.from_pretrained(model_path)
 
 
@@ -18,5 +18,7 @@ st.title('⛑️ Safety Bot ⛑️')
 
 st.write('Hello world!')
 st.write("Model loaded successfully")
+
+
 
 
