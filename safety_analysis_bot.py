@@ -93,8 +93,8 @@ if prompt := st.chat_input("Enter the description of the incident..."):
 
     # Display predicted label in chat message container
     with st.chat_message("assistant", avatar='🤖'):
-        st.write("Accident Level:", accident_level)
-        st.markdown(f"Accident Level: {accident_level}")
+        #st.write("Based on the description, we can ascertain this incident to be an Accident Level:", accident_level)
+        st.markdown(f"Based on the description, we can ascertain this incident to be an Accident Level: {accident_level}")
 
     # Add assistant response to chat history
     #st.session_state.messages.append({"role": "assistant", "content": response_text})
