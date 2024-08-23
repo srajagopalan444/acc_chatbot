@@ -37,15 +37,18 @@ def roberta_text_prep(text):
   attention_mask = tokens['attention_mask']
   return input_ids, attention_mask
 
+def predict_accident_roberta(text):
+  with torch.no_grad():
+      text = nlp_text_prep(text)
+      input_ids, attention_mask = roberta_text_prep(text)
+      logits = model(torch.tensor([input_ids]), attention_mask=torch.tensor([attention_mask])).logits
+      predicted_label = torch.argmax(logits, dim=1).item()
+      mapped_label = predicted_label + 1  # Map 0 to 1, 1 to 2, etc.
+  return mapped_label
+    
 prompt = "The floor supervisor called on the foreman to lift the iron bar lying next to the work table. The foreman had to take the ladder to go up to the first level. He tripped a rung and sprained his upper ankle and foot. Advised to take rest for one week."
 
-# Preprocess text
-cleaned_text = nlp_text_prep(prompt)
-cleaned_text
-
-# Tokenize text using Roberta tokenizer
-input_ids, attention_mask = roberta_text_prep(cleaned_text)
-input_ids, attention_mask
+predict_accident_roberta(prompt)
 
 import streamlit as st
 from transformers import pipeline
@@ -79,19 +82,11 @@ if prompt := st.chat_input("Enter the description of the incident..."):
     #response = model.generate(prompt, max_length=100, num_beams=4)
     #response_text = response[0]['text']
 
-    # Preprocess text
-    cleaned_text = nlp_text_prep(prompt)
-    clean_text
-
-    # Tokenize text using Roberta tokenizer
-    input_ids, attention_mask = roberta_text_prep(cleaned_text)
-    input_ids, attention_mask
-
     # Make prediction
-    #predicted_label = predict_accident_roberta(input_ids, attention_mask)
+    accident_level = predict_accident_roberta(prompt)
 
     # Display prediction result (you can customize this)
-    #st.write("Predicted Label:", predicted_label)
+    #st.write("Accident Level:", accident_level)
 
     # Display predicted label in chat message container
     with st.chat_message("assistant", avatar='🤖'):
