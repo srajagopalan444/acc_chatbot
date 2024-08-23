@@ -39,11 +39,12 @@ def roberta_text_prep(text):
 
 #Predict accident level
 def predict_accident_roberta(input_ids, attention_mask):
-  with torch.no_grad():
-        logits = model(torch.tensor([input_ids]), attention_mask=torch.tensor([attention_mask])).logits
+    with torch.no_grad():
+        encoded_input = torch.tensor([input_ids], dtype=torch.long)  # Convert input_ids to Long tensor
+        logits = model(encoded_input, attention_mask=torch.tensor([attention_mask])).logits
         predicted_label = torch.argmax(logits, dim=1).item()
         mapped_label = predicted_label + 1  # Map 0 to 1, 1 to 2, etc.
-  return mapped_label
+    return mapped_label
 
 
 import streamlit as st
