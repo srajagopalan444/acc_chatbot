@@ -10,11 +10,12 @@ from torch.utils.data import TensorDataset, DataLoader
 from tqdm import tqdm
 import tensorflow as tf
 
+from transformers import AutoModelForSequenceClassification, RobertaTokenizer 
 
-from transformers import AutoModel, RobertaTokenizer 
+# Assuming your model is indeed a sequence classification model
+model = AutoModelForSequenceClassification.from_pretrained("sudraj/acc_state_dic", use_auth_token="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") 
 
-model = AutoModel.from_pretrained("sudraj/acc_state_dic", use_auth_token="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")
-tokenizer_r = RobertaTokenizer.from_pretrained("roberta-base")
+
 
 #NLP Text Cleanup
 def nlp_text_prep(text):
@@ -37,11 +38,14 @@ def roberta_text_prep(text):
   attention_mask = tokens['attention_mask']
   return input_ids, attention_mask
 
+
 def predict_accident_roberta(text):
   with torch.no_grad():
       text = nlp_text_prep(text)
       input_ids, attention_mask = roberta_text_prep(text)
-      logits = model(torch.tensor([input_ids]), attention_mask=torch.tensor([attention_mask])).logits
+      # Access logits from the correct attribute
+      outputs = model(torch.tensor([input_ids]), attention_mask=torch.tensor([attention_mask]))
+      logits = outputs.logits 
       predicted_label = torch.argmax(logits, dim=1).item()
       mapped_label = predicted_label + 1  # Map 0 to 1, 1 to 2, etc.
   return mapped_label
