@@ -22,7 +22,7 @@ from transformers import pipeline
 st.title('⛑️ Safety Bot ⛑️')
 
 # Load the language model (replace with your desired model)
-model = pipeline("text-generation", model="gpt2")
+#model = pipeline("text-generation", model="gpt2")
 
 st.write('Hello world!!')
 st.write("Model loaded successfully")
