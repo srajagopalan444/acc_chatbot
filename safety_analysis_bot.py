@@ -16,6 +16,28 @@ from transformers import AutoModel, RobertaTokenizer
 model = AutoModel.from_pretrained("sudraj/acc_state_dic", use_auth_token="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")
 tokenizer_r = RobertaTokenizer.from_pretrained("roberta-base")
 
+#NLP Text Cleanup
+def nlp_text_prep(text):
+    # Lowercase conversion
+    text = text.lower()
+    # Punctuation, Special Charcters removal (optional)
+    text = ''.join([char for char in text if char.isalnum() or char.isspace()])  # Adjust for desired punctuation handling
+    #Stopwords and numeric characters removal
+    #stop_words = set(stopwords.words('english'))
+    words = [word for word in text.split() if not word.isdigit()]
+    return ' '.join(words)
+
+#RoBERTa Tokenizer
+from transformers import RobertaTokenizer
+tokenizer_r = RobertaTokenizer.from_pretrained("roberta-base")
+def roberta_text_prep(text):
+  # Max length of 256 ensures a larger yet more standard acceptance of text input size
+  tokens = tokenizer_r.encode_plus(text, add_special_tokens=True, max_length=256, truncation=True, padding='max_length')
+  input_ids = tokens['input_ids']
+  attention_mask = tokens['attention_mask']
+  return input_ids, attention_mask
+
+#Predict accident level
 def predict_accident_roberta(text):
   with torch.no_grad():
       text = nlp_text_prep(text)
