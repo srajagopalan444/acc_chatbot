@@ -41,9 +41,11 @@ prompt = "The floor supervisor called on the foreman to lift the iron bar lying 
 
 # Preprocess text
 cleaned_text = nlp_text_prep(prompt)
+cleaned_text
 
 # Tokenize text using Roberta tokenizer
 input_ids, attention_mask = roberta_text_prep(cleaned_text)
+input_ids, attention_mask
 
 import streamlit as st
 from transformers import pipeline
