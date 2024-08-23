@@ -7,4 +7,5 @@ torch
 tqdm
 scikit-learn
 tensorflow
+tf-keras
 
