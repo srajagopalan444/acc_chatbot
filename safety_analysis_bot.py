@@ -15,7 +15,6 @@ from transformers import AutoModelForSequenceClassification, RobertaTokenizer
 # Assuming your model is indeed a sequence classification model
 model = AutoModelForSequenceClassification.from_pretrained("sudraj/acc_state_dic", use_auth_token="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") 
 
-model
 
 #NLP Text Cleanup
 def nlp_text_prep(text):
@@ -90,12 +89,12 @@ if prompt := st.chat_input("Enter the description of the incident..."):
     accident_level = predict_accident_roberta(prompt)
 
     # Display prediction result (you can customize this)
-    #st.write("Accident Level:", accident_level)
+    #st.write()
 
     # Display predicted label in chat message container
     with st.chat_message("assistant", avatar='🤖'):
-        st.write("Yeah")
-        #st.markdown(f"Predicted Label: {predicted_label}")
+        st.write("Accident Level:", accident_level)
+        st.markdown(f"Accident Level: {accident_level}")
 
     # Add assistant response to chat history
     st.session_state.messages.append({"role": "assistant", "content": response_text})
