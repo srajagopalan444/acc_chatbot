@@ -41,6 +41,8 @@ def roberta_text_prep(text):
 def predict_accident_roberta(input_ids, attention_mask):
     with torch.no_grad():
         encoded_input = torch.tensor([input_ids], dtype=torch.long)  # Convert input_ids to Long tensor
+        # Add batch dimension
+        encoded_input = encoded_input.unsqueeze(0)  # Add a new dimension at index 0
         logits = model(encoded_input, attention_mask=torch.tensor([attention_mask])).logits
         predicted_label = torch.argmax(logits, dim=1).item()
         mapped_label = predicted_label + 1  # Map 0 to 1, 1 to 2, etc.
