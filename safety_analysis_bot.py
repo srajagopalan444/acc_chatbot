@@ -52,7 +52,7 @@ def predict_accident_roberta(text):
     
 prompt = "The floor supervisor called on the foreman to lift the iron bar lying next to the work table. The foreman had to take the ladder to go up to the first level. He tripped a rung and sprained his upper ankle and foot. Advised to take rest for one week."
 
-st.write(predict_accident_roberta(prompt))
+predict_accident_roberta(prompt)
 
 import streamlit as st
 from transformers import pipeline
