@@ -37,6 +37,7 @@ def roberta_text_prep(text):
   attention_mask = tokens['attention_mask']
   return input_ids, attention_mask
 
+prompt = "The floor supervisor called on the foreman to lift the iron bar lying next to the work table. The foreman had to take the ladder to go up to the first level. He tripped a rung and sprained his upper ankle and foot. Advised to take rest for one week."
 
 # Preprocess text
 cleaned_text = nlp_text_prep(prompt)
