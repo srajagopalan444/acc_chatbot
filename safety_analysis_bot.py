@@ -92,6 +92,7 @@ if prompt := st.chat_input("Enter the description of the incident..."):
 
     # Display predicted label in chat message container
     with st.chat_message("assistant", avatar='🤖'):
+        st.write("Yeah")
         #st.markdown(f"Predicted Label: {predicted_label}")
 
     # Add assistant response to chat history
