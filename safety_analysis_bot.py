@@ -79,7 +79,7 @@ if prompt := st.chat_input("Enter the description of the incident..."):
         st.markdown(prompt)
 
     # Add user message to chat history
-    st.session_state.messages.append({"role": "Analyst", "content": prompt})
+    st.session_state.messages.append({"role": "Analyst", "content": prompt, avatar='👤'})
 
     # Generate response from the language model
     #response = model.generate(prompt, max_length=100, num_beams=4)
@@ -92,8 +92,8 @@ if prompt := st.chat_input("Enter the description of the incident..."):
     #st.write()
 
     # Display predicted label in chat message container
-    with st.chat_message("assistant", avatar='🤖'):
-        response = ("Based on the description, we can ascertain this incident to be an Accident Level:", accident_level)
+    with st.chat_message("assistant"):
+        response = "Based on the description, we can ascertain this incident to be an Accident Level:", accident_level
         #st.write("Based on the description, we can ascertain this incident to be an Accident Level:", accident_level)
         st.markdown(f"Based on the description, we can ascertain this incident to be an Accident Level: {accident_level}")
 
