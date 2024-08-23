@@ -38,7 +38,7 @@ def roberta_text_prep(text):
   return input_ids, attention_mask
 
 #Predict accident level
-def predict_accident_roberta(text):
+def predict_accident_roberta(input_ids, attention_mask):
   with torch.no_grad():
         logits = model(torch.tensor([input_ids]), attention_mask=torch.tensor([attention_mask])).logits
         predicted_label = torch.argmax(logits, dim=1).item()
@@ -85,7 +85,7 @@ if prompt := st.chat_input("Enter the description of the incident..."):
     input_ids, attention_mask = roberta_text_prep(cleaned_text)
 
     # Make prediction
-    predicted_label = predict_accident_roberta(cleaned_text)
+    predicted_label = predict_accident_roberta(input_ids, attention_mask)
 
     # Display prediction result (you can customize this)
     st.write("Predicted Label:", predicted_label)
