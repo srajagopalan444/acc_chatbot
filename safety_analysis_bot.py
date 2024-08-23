@@ -15,7 +15,7 @@ from transformers import AutoModelForSequenceClassification, RobertaTokenizer
 # Assuming your model is indeed a sequence classification model
 model = AutoModelForSequenceClassification.from_pretrained("sudraj/acc_state_dic", use_auth_token="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") 
 
-
+model.config()
 
 #NLP Text Cleanup
 def nlp_text_prep(text):
