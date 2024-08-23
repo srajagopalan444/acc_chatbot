@@ -98,7 +98,7 @@ if prompt := st.chat_input("Enter the description of the incident..."):
         st.markdown(f"Based on the description, we can ascertain this incident to be an Accident Level: {accident_level}")
 
     # Add assistant response to chat history
-    #st.session_state.messages.append({"role": "assistant", "content": response})
+    st.session_state.messages.append({"role": "assistant", "content": response})
 
 
 
