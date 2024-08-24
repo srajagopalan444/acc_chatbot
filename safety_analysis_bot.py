@@ -79,7 +79,7 @@ if prompt := st.chat_input("Enter the description of the incident..."):
         st.markdown(prompt)
 
     # Add user message to chat history
-    st.session_state.messages.append({"role": "Analyst", "content": prompt, avatar:'👤'})
+    st.session_state.messages.append({"role": "Analyst", "content": prompt})
 
     # Generate response from the language model
     #response = model.generate(prompt, max_length=100, num_beams=4)
